@@ -8,9 +8,7 @@ import (
 	"github.com/krelinga/go-deep"
 )
 
-type Env interface {
-	deep.Env
-
+type EnvT interface {
 	// Methods from testing.T
 	// TODO: add Attr()
 	Chdir(dir string)
@@ -41,6 +39,11 @@ type Env interface {
 	Run(name string, f func(env Env)) bool
 }
 
+type Env interface {
+	deep.Env
+	EnvT
+}
+
 type envImpl struct {
 	deep.Env
 	*testing.T
@@ -48,7 +51,7 @@ type envImpl struct {
 
 func (e *envImpl) Run(name string, f func(env Env)) bool {
 	return e.T.Run(name, func(t *testing.T) {
-		f(NewEnv(t))
+		f(WrapEnv(e))
 	})
 }
 
@@ -56,5 +59,17 @@ func NewEnv(t *testing.T) Env {
 	return &envImpl{
 		Env: deep.NewEnv(),
 		T:   t,
+	}
+}
+
+type wrappedEnv struct {
+	deep.Env
+	EnvT
+}
+
+func WrapEnv(env Env, opts ...deep.Opt) Env {
+	return &wrappedEnv{
+		Env: deep.WrapEnv(env, opts...),
+		EnvT: env,
 	}
 }
