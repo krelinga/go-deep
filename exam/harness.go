@@ -24,18 +24,18 @@ type Log struct {
 }
 
 func (l *Log) Find(names ...string) (*Log, bool) {
-	if l.Children == nil {
+	if l.Children == nil || len(names) == 0 {
 		return nil, false
 	}
-	cur := l
-	for _, name := range names {
-		child, ok := cur.Children[name]
-		if !ok {
-			return nil, false
-		}
-		cur = child
+	name := names[0]
+	child, ok := l.Children[name]
+	if !ok {
+		return nil, false
 	}
-	return cur, true
+	if len(names) == 1 {
+		return child, true
+	}
+	return child.Find(names[1:]...)
 }
 
 type Harness struct {
@@ -104,11 +104,11 @@ func (t *mockT) Run(name string, f func(E)) bool {
 		panic("Run: T already done")
 	}
 
-	if _, exists := t.log.Children[name]; exists {
-		panic(fmt.Sprintf("Run: sub-test %q already exists", name))
-	}
 	if t.log.Children == nil {
 		t.log.Children = make(map[string]*Log)
+	}
+	if _, exists := t.log.Children[name]; exists {
+		panic(fmt.Sprintf("Run: sub-test %q already exists", name))
 	}
 	log := &Log{}
 	t.log.Children[name] = log
@@ -128,6 +128,7 @@ func (t *mockT) Run(name string, f func(E)) bool {
 		defer subT.finish(&result)
 		f(subT)
 	}()
+	wait.Wait()
 
 	return result
 }
