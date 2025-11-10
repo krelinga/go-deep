@@ -35,8 +35,9 @@ type TestingT interface {
 	TempDir() string
 }
 
-// Similar to testing.T, but with deep.Env support in the Run() method.
+// Similar to testing.T, but with deep.Env support.
 type T interface {
 	TestingT
-	Run(name string, f func(T, deep.Env)) bool
+	Run(name string, f func(T)) bool
+	DeepEnv() deep.Env
 }
