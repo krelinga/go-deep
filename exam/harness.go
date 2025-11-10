@@ -7,8 +7,6 @@ import (
 	"runtime"
 	"sync"
 	"time"
-
-	"github.com/krelinga/go-deep"
 )
 
 type Log struct {
@@ -41,7 +39,6 @@ func (l *Log) Find(names ...string) (*Log, bool) {
 }
 
 type Harness struct {
-	DeepEnv  deep.Env
 	Ctx      context.Context
 	Name     string
 	Deadline time.Time
@@ -61,7 +58,6 @@ func (h *Harness) Run(f func(E)) *Log {
 		ctx, cancel = context.WithCancel(ctx)
 		defer cancel()
 		t := &mockT{
-			deepEnv:  h.DeepEnv,
 			ctx:      ctx,
 			name:     h.Name,
 			deadline: h.Deadline,
@@ -77,7 +73,6 @@ func (h *Harness) Run(f func(E)) *Log {
 
 type mockT struct {
 	// Initially taken from the harness, but can be modified in sub-tests.
-	deepEnv  deep.Env
 	ctx      context.Context
 	name     string
 	deadline time.Time
@@ -100,15 +95,6 @@ func (t *mockT) finish(result *bool) {
 	if result != nil {
 		*result = !t.log.Fail
 	}
-}
-
-func (t *mockT) DeepEnv() deep.Env {
-	t.mu.Lock()
-	defer t.mu.Unlock()
-	if t.done {
-		panic("DeepEnv: T already done")
-	}
-	return t.deepEnv
 }
 
 func (t *mockT) Run(name string, f func(E)) bool {
@@ -134,7 +120,6 @@ func (t *mockT) Run(name string, f func(E)) bool {
 		ctx, cancel := context.WithCancel(t.ctx)
 		defer cancel()
 		subT := &mockT{
-			deepEnv:  t.deepEnv,
 			ctx:      ctx,
 			name:     fmt.Sprintf("%s/%s", t.name, name),
 			deadline: t.deadline,

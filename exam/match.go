@@ -1,20 +1,21 @@
 package exam
 
 import (
+	"github.com/krelinga/go-deep"
 	"github.com/krelinga/go-deep/match"
 )
 
-func Match[Type any](t E, got Type, m match.Matcher) Result {
-	t.Helper()
+func Match[Type any](e E, env deep.Env, got Type, m match.Matcher) Result {
+	e.Helper()
 	vals := match.NewVals1(got)
-	return MatchVals(t, vals, m)
+	return MatchVals(e, env, vals, m)
 }
 
-func MatchVals(t E, vals match.Vals, m match.Matcher) Result {
-	t.Helper()
-	r := m.Match(t.DeepEnv(), vals)
+func MatchVals(e E, env deep.Env, vals match.Vals, m match.Matcher) Result {
+	e.Helper()
+	r := m.Match(env, vals)
 	if !r.Matched() {
-		t.Errorf("Match failed:\n%s", r)
+		e.Errorf("Match failed:\n%s", r)
 	}
-	return NewResult(r.Matched(), t)
+	return NewResult(r.Matched(), e)
 }

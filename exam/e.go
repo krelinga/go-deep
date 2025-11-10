@@ -43,23 +43,16 @@ type TestingT interface {
 type E interface {
 	Common
 	Run(name string, f func(E)) bool
-	DeepEnv() deep.Env
 }
 
 type eImpl struct {
 	TestingT
-	deepEnv deep.Env
-}
-
-func (t *eImpl) DeepEnv() deep.Env {
-	return t.deepEnv
 }
 
 func (t *eImpl) Run(name string, f func(E)) bool {
 	return t.TestingT.Run(name, func(tt *testing.T) {
 		subT := &eImpl{
 			TestingT: tt,
-			deepEnv:  t.deepEnv,
 		}
 		f(subT)
 	})
@@ -68,6 +61,5 @@ func (t *eImpl) Run(name string, f func(E)) bool {
 func New(t TestingT, env deep.Env) E {
 	return &eImpl{
 		TestingT: t,
-		deepEnv:  env,
 	}
 }
