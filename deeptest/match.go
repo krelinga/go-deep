@@ -17,9 +17,5 @@ func MatchVals(t T, env deep.Env, vals match.Vals, m match.Matcher) Result {
 	if !r.Matched() {
 		t.Errorf("Match failed:\n%s", r)
 	}
-	return &resultImpl{
-		ok:  r.Matched(),
-		t: t,
-		env: env,
-	}
+	return NewResult(r.Matched(), t)
 }
