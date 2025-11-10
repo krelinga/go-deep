@@ -1,4 +1,4 @@
-package deeptest_test
+package exam_test
 
 import (
 	"reflect"

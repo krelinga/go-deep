@@ -1,4 +1,4 @@
-package deeptest
+package exam
 
 import (
 	"github.com/krelinga/go-deep/match"

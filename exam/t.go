@@ -1,4 +1,4 @@
-package deeptest
+package exam
 
 import (
 	"context"

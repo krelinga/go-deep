@@ -1,4 +1,4 @@
-package deeptest
+package exam
 
 type Result interface {
 	Log(...any) Result
@@ -9,14 +9,14 @@ type Result interface {
 
 func NewResult(ok bool, t T) Result {
 	return &resultImpl{
-		ok:  ok,
-		t: t,
+		ok: ok,
+		t:  t,
 	}
 }
 
 type resultImpl struct {
-	ok  bool
-	t T
+	ok bool
+	t  T
 }
 
 func (r *resultImpl) Log(args ...any) Result {
