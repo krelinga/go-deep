@@ -134,7 +134,7 @@ func (t *mockT) Run(name string, f func(T)) bool {
 		ctx, cancel := context.WithCancel(t.ctx)
 		defer cancel()
 		subT := &mockT{
-			deepEnv:  deep.WrapEnv(t.deepEnv),
+			deepEnv:  t.deepEnv,
 			ctx:      ctx,
 			name:     fmt.Sprintf("%s/%s", t.name, name),
 			deadline: t.deadline,

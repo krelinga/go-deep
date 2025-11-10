@@ -266,7 +266,7 @@ func TestFormat(t *testing.T) {
 		}
 		for _, tt := range tests {
 			t.Run(tt.name, func(t *testing.T) {
-				env := deep.WrapEnv(deep.NewEnv(), tt.opt)
+				env := deep.NewEnv(tt.opt)
 				got := deep.Format(env, a)
 				if got != tt.want {
 					t.Errorf("got %q, want %q", got, tt.want)

@@ -60,7 +60,7 @@ func (t *tImpl) Run(name string, f func(T)) bool {
 	return t.TestingT.Run(name, func(tt *testing.T) {
 		subT := &tImpl{
 			TestingT: tt,
-			deepEnv:  deep.WrapEnv(t.deepEnv),
+			deepEnv:  t.deepEnv,
 		}
 		f(subT)
 	})
