@@ -399,7 +399,7 @@ func (t *mockT) TempDir() string {
 	}
 
 	var err error
-	t.tempDir, err = os.MkdirTemp("", "deeptest-*")
+	t.tempDir, err = os.MkdirTemp("", "exam-*")
 	if err != nil {
 		panic(fmt.Errorf("TempDir: MkdirTemp failed: %w", err))
 	}
