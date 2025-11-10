@@ -12,12 +12,12 @@ func TestHarness(t *testing.T) {
 		h := exam.Harness{
 			DeepEnv: deep.NewEnv(testValOpt("foo")),
 		}
-		h.Run(func(innerT exam.T) {
+		h.Run(func(innerT exam.E) {
 			val := getTestVal(t, innerT.DeepEnv())
 			if val != "foo" {
 				t.Errorf("expected test value 'foo', got %q", val)
 			}
-			innerT.Run("nested", func(innerT exam.T) {
+			innerT.Run("nested", func(innerT exam.E) {
 				val := getTestVal(t, innerT.DeepEnv())
 				if val != "foo" {
 					t.Errorf("expected test value 'foo', got %q", val)

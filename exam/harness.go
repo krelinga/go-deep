@@ -47,7 +47,7 @@ type Harness struct {
 	Deadline time.Time
 }
 
-func (h *Harness) Run(f func(T)) *Log {
+func (h *Harness) Run(f func(E)) *Log {
 	wait := sync.WaitGroup{}
 	wait.Add(1)
 	log := &Log{}
@@ -111,7 +111,7 @@ func (t *mockT) DeepEnv() deep.Env {
 	return t.deepEnv
 }
 
-func (t *mockT) Run(name string, f func(T)) bool {
+func (t *mockT) Run(name string, f func(E)) bool {
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	if t.done {

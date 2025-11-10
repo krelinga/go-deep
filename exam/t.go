@@ -8,7 +8,7 @@ import (
 	"github.com/krelinga/go-deep"
 )
 
-type CommonT interface {
+type Common interface {
 	// TODO: add Attr()
 	Chdir(dir string)
 	Cleanup(f func())
@@ -36,29 +36,29 @@ type CommonT interface {
 }
 
 type TestingT interface {
-	CommonT
+	Common
 	Run(name string, f func(t *testing.T)) bool
 }
 
-// Similar to testing.T, but with deep.Env support.
-type T interface {
-	CommonT
-	Run(name string, f func(T)) bool
+// Similar to testing.E, but with deep.Env support.
+type E interface {
+	Common
+	Run(name string, f func(E)) bool
 	DeepEnv() deep.Env
 }
 
-type tImpl struct {
+type eImpl struct {
 	TestingT
 	deepEnv deep.Env
 }
 
-func (t *tImpl) DeepEnv() deep.Env {
+func (t *eImpl) DeepEnv() deep.Env {
 	return t.deepEnv
 }
 
-func (t *tImpl) Run(name string, f func(T)) bool {
+func (t *eImpl) Run(name string, f func(E)) bool {
 	return t.TestingT.Run(name, func(tt *testing.T) {
-		subT := &tImpl{
+		subT := &eImpl{
 			TestingT: tt,
 			deepEnv:  t.deepEnv,
 		}
@@ -66,8 +66,8 @@ func (t *tImpl) Run(name string, f func(T)) bool {
 	})
 }
 
-func NewT(t TestingT, env deep.Env) T {
-	return &tImpl{
+func New(t TestingT, env deep.Env) E {
+	return &eImpl{
 		TestingT: t,
 		deepEnv:  env,
 	}

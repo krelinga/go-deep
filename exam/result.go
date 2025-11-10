@@ -7,7 +7,7 @@ type Result interface {
 	Must()
 }
 
-func NewResult(ok bool, t T) Result {
+func NewResult(ok bool, t E) Result {
 	return &resultImpl{
 		ok: ok,
 		t:  t,
@@ -16,7 +16,7 @@ func NewResult(ok bool, t T) Result {
 
 type resultImpl struct {
 	ok bool
-	t  T
+	t  E
 }
 
 func (r *resultImpl) Log(args ...any) Result {
