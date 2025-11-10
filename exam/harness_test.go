@@ -146,4 +146,31 @@ func TestHarness(t *testing.T) {
 			wait.Wait()
 		})
 	})
+
+	t.Run("Deadline", func(t *testing.T) {
+		tests := []struct {
+			name     string
+			deadline time.Time
+			wantOk   bool
+		}{
+			{"no deadline", time.Time{}, false},
+			{"with deadline", time.Now().Add(1 * time.Hour), true},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				h := exam.Harness{
+					Deadline: tt.deadline,
+				}
+				h.Run(func(e exam.E) {
+					dl, ok := e.Deadline()
+					if ok != tt.wantOk {
+						t.Errorf("expected ok=%v, got %v", tt.wantOk, ok)
+					}
+					if ok && !dl.Equal(tt.deadline) {
+						t.Errorf("expected deadline %v, got %v", tt.deadline, dl)
+					}
+				})
+			})
+		}
+	})
 }
