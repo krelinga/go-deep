@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type MockLog struct {
+type Log struct {
 	Error    []string
 	Fatal    []string
 	Log      []string
@@ -24,6 +24,6 @@ type Harness struct {
 	Deadline time.Time
 }
 
-func (h Harness) Run(f func(T)) MockLog {
+func (h Harness) Run(f func(T)) Log {
 	panic("Harness Run: not implemented") // TODO: implement
 }
