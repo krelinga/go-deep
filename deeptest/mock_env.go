@@ -348,3 +348,14 @@ func (m Mocker) Run(f func(Env)) *MockLog {
 	// results.
 	return nil
 }
+
+type Harness struct {
+	Ctx      context.Context
+	Name     string
+	TempDir  string
+	Deadline time.Time
+}
+
+func (h Harness) Run(f func(Env)) MockLog {
+	panic("Harness Run: not implemented") // TODO: implement
+}
