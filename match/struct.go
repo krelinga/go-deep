@@ -28,3 +28,8 @@ func (s Struct) Match(env deep.Env, vals Vals) Result {
 	}
 	return NewResult(true, "struct matches")
 }
+
+type Struct2 struct {
+	Default Matcher
+	Fields  map[deep.Field]Matcher
+}
