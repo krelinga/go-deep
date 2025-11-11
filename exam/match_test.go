@@ -16,13 +16,13 @@ func TestMatchVals(t *testing.T) {
 		logMatcher match.Matcher
 	}{
 		{
-			name:  "real matcher matches",
-			inVal: match.NewVals1(42),
+			name:       "real matcher matches",
+			inVal:      match.NewVals1(42),
 			logMatcher: matchLogOk(),
 		},
 		{
-			name:  "real matcher does not match",
-			inVal: match.NewVals1(43),
+			name:       "real matcher does not match",
+			inVal:      match.NewVals1(43),
 			logMatcher: matchLogError(),
 		},
 	}
@@ -48,13 +48,13 @@ func TestMatch(t *testing.T) {
 		logMatcher match.Matcher
 	}{
 		{
-			name: "real matcher matches",
-			in:   42,
+			name:       "real matcher matches",
+			in:         42,
 			logMatcher: matchLogOk(),
 		},
 		{
-			name: "real matcher does not match",
-			in:   43,
+			name:       "real matcher does not match",
+			in:         43,
 			logMatcher: matchLogError(),
 		},
 	}

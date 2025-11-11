@@ -16,17 +16,17 @@ func TestEqual(t *testing.T) {
 		matcher match.Matcher
 	}{
 		{
-			name: "a equal to b",
-			a:    5,
-			b:    5,
-			want: true,
+			name:    "a equal to b",
+			a:       5,
+			b:       5,
+			want:    true,
 			matcher: matchLogOk(),
 		},
 		{
-			name: "a not equal to b",
-			a:    5,
-			b:    6,
-			want: false,
+			name:    "a not equal to b",
+			a:       5,
+			b:       6,
+			want:    false,
 			matcher: matchLogError(),
 		},
 	}
@@ -54,17 +54,17 @@ func TestNotEqual(t *testing.T) {
 		matcher match.Matcher
 	}{
 		{
-			name: "a not equal to b",
-			a:    5,
-			b:    6,
-			want: true,
+			name:    "a not equal to b",
+			a:       5,
+			b:       6,
+			want:    true,
 			matcher: matchLogOk(),
 		},
 		{
-			name: "a equal to b",
-			a:    5,
-			b:    5,
-			want: false,
+			name:    "a equal to b",
+			a:       5,
+			b:       5,
+			want:    false,
 			matcher: matchLogError(),
 		},
 	}

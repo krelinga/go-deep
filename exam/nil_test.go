@@ -16,15 +16,15 @@ func TestNil(t *testing.T) {
 		matcher match.Matcher
 	}{
 		{
-			name: "a is nil",
-			a:    nil,
-			want: true,
+			name:    "a is nil",
+			a:       nil,
+			want:    true,
 			matcher: matchLogOk(),
 		},
 		{
-			name: "a is not nil",
-			a:    5,
-			want: false,
+			name:    "a is not nil",
+			a:       5,
+			want:    false,
 			matcher: matchLogError(),
 		},
 	}
@@ -52,15 +52,15 @@ func TestNotNil(t *testing.T) {
 		matcher match.Matcher
 	}{
 		{
-			name: "a is not nil",
-			a:    5,
-			want: true,
+			name:    "a is not nil",
+			a:       5,
+			want:    true,
 			matcher: matchLogOk(),
 		},
 		{
-			name: "a is nil",
-			a:    nil,
-			want: false,
+			name:    "a is nil",
+			a:       nil,
+			want:    false,
 			matcher: matchLogError(),
 		},
 	}

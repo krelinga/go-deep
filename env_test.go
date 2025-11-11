@@ -357,7 +357,7 @@ func TestSetOverridesSetAll(t *testing.T) {
 		env.Set(stringType, "tag", "specific_value")
 	})
 	env := deep.NewEnv(allOpt, typeOpt)
-	
+
 	// Specific value should be found
 	val, ok := env.Get(stringType, "tag")
 	if !ok {
