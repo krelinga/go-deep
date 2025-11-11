@@ -45,7 +45,49 @@ func TestMatchVals(t *testing.T) {
 			})
 			result := tt.logMatcher.Match(env, match.NewVals1(log))
 			if !result.Matched() {
-				t.Errorf("MatchVals() log = %s, want %s", deep.Format(env, log), deep.Format(env, tt.logMatcher))
+				t.Errorf("MatchVals() log = %s", deep.Format(env, log))
+			}
+		})
+	}
+}
+
+func TestMatch(t *testing.T) {
+	tests := []struct {
+		name       string
+		in         int
+		logMatcher match.Matcher
+	}{
+		{
+			name: "real matcher matches",
+			in:   42,
+			logMatcher: match.Equal(&exam.Log{
+				Helper: true,
+			}),
+		},
+		{
+			name: "real matcher does not match",
+			in:   43,
+			logMatcher: match.Pointer(match.Struct{
+				Fields: map[deep.Field]match.Matcher{
+					deep.NamedField("Error"): match.Len(match.Equal(1)),
+				},
+				Partial: match.Equal(exam.Log{
+					Helper: true,
+					Fail:   true,
+				}),
+			}),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			env := deep.NewEnv()
+			h := exam.Harness{}
+			log := h.Run(func(e exam.E) {
+				exam.Match(e, env, tt.in, match.Equal(42))
+			})
+			result := tt.logMatcher.Match(env, match.NewVals1(log))
+			if !result.Matched() {
+				t.Errorf("Match() log = %s", deep.Format(env, log))
 			}
 		})
 	}
