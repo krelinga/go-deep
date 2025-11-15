@@ -3,9 +3,9 @@ package exam_test
 import (
 	"testing"
 
-	"github.com/krelinga/go-deep/deep"
-	"github.com/krelinga/go-deep/exam"
-	"github.com/krelinga/go-deep/match"
+	"github.com/krelinga/go-libs/deep"
+	"github.com/krelinga/go-libs/exam"
+	"github.com/krelinga/go-libs/match"
 )
 
 func TestLessThan(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/krelinga/go-deep/deep"
+	"github.com/krelinga/go-libs/deep"
 )
 
 func TestNewEnv(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/krelinga/go-deep/deep"
+	"github.com/krelinga/go-libs/deep"
 )
 
 type Slice struct {

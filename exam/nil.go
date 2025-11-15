@@ -1,8 +1,8 @@
 package exam
 
 import (
-	"github.com/krelinga/go-deep/deep"
-	"github.com/krelinga/go-deep/match"
+	"github.com/krelinga/go-libs/deep"
+	"github.com/krelinga/go-libs/match"
 )
 
 func Nil[Type any](e E, env deep.Env, a Type) Result {

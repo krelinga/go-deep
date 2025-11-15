@@ -1,6 +1,6 @@
 package match
 
-import "github.com/krelinga/go-deep/deep"
+import "github.com/krelinga/go-libs/deep"
 
 func LessThan[T any](limit T) Matcher {
 	return Func(func(env deep.Env, vals Vals) Result {

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/krelinga/go-deep/deep"
+	"github.com/krelinga/go-libs/deep"
 )
 
 type Common interface {

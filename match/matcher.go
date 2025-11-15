@@ -1,6 +1,6 @@
 package match
 
-import "github.com/krelinga/go-deep/deep"
+import "github.com/krelinga/go-libs/deep"
 
 type Matcher interface {
 	Match(deep.Env, Vals) Result

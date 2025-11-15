@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/krelinga/go-deep/deep"
+	"github.com/krelinga/go-libs/deep"
 )
 
 func Suffix[S Sequence](seq S) Matcher {
